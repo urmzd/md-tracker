@@ -1,0 +1,12 @@
+{
+  "name": "RitasTracker",
+  "displayName": "RitasTracker",
+  "expo": {
+    "name": "RitasTracker",
+    "slug": "RitasTracker",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
