@@ -1,12 +1,10 @@
 {
-  "name": "RitasTracker",
-  "displayName": "RitasTracker",
-  "expo": {
-    "name": "RitasTracker",
-    "slug": "RitasTracker",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  }
+	"name": "ProCog",
+	"displayName": "ProCog",
+	"expo": {
+		"name": "ProCog",
+		"slug": "ProCog",
+		"version": "1.0.0",
+		"assetBundlePatterns": ["**/*"]
+	}
 }
