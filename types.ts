@@ -12,6 +12,11 @@ export interface LogTemplate {
 	endDateTime?: string;
 	headacheRating?: SymptomScale;
 	numbnessRating?: SymptomScale;
+	visionLossRating?: SymptomScale;
+	confusionRating?: SymptomScale;
+	nauseaRating?: SymptomScale;
+	dizzinessRating?: SymptomScale;
+	unsteadinessRating?: SymptomScale;
 	notes?: string;
 }
 

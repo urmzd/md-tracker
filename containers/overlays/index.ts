@@ -1,2 +1,2 @@
-export { default as NotificationsSnackbar } from './NotificationsSnackbar';
 export { default as SymptomReportModal } from './SymptomReportModal';
+export { default as LoadingModal } from './LoadingModal';

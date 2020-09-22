@@ -1,113 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import {
-	NavigationContainer,
-	DarkTheme as NavigationDarkTheme,
-} from '@react-navigation/native';
-import {
-	DarkTheme as PaperDarkTheme,
-	Provider as PaperProvider,
-	Provider,
-} from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { View, StyleSheet } from 'react-native';
-import { LogTemplate, RootState } from './types';
-import { ButtonStatus, RouteIcons, Routes } from './constants/Misc';
-import { useSelector, Provider as ReduxProvider } from 'react-redux';
-import RootReducer from './features';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { configureStore } from '@reduxjs/toolkit';
-import { completeLog, createLog, fetchLogs } from './features/Logs';
-import { useAppDispatch } from './utils/Redux';
-import moment from 'moment';
-import { LoadingIcon, RecordIcon } from './components';
-import { SymptomReportModal } from './containers/overlays';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { enableScreens } from 'react-native-screens';
+import { Provider as ReduxProvider } from 'react-redux';
+import {
+	ColorPalette,
+	MainRoutes,
+	ModalRoutes,
+	RouteIcons,
+} from './constants/Misc';
+import { LoadingModal, SymptomReportModal } from './containers/overlays';
+import { HomeScreen } from './containers/views';
+import RootReducer from './features';
 
 export const Store = configureStore({
 	reducer: RootReducer,
 });
 
 const Styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
+	bottomNavigator: {
+		backgroundColor: ColorPalette.PRIMARY_GREY,
 	},
 });
 
-const CombinedDarkTheme = {
-	...PaperDarkTheme,
-	...NavigationDarkTheme,
-	colors: { ...PaperDarkTheme.colors, ...NavigationDarkTheme.colors },
-};
+const MainStack = createMaterialBottomTabNavigator();
+const RootStack = createStackNavigator();
 
-const Tab = createMaterialBottomTabNavigator();
-
-const HomeScreen = () => {
-	const logs = useSelector((state: RootState) => state.logs);
-	const container = [...logs.container];
-
-	const dispatch = useAppDispatch();
-
-	useEffect(() => {
-		dispatch(fetchLogs());
-	}, []);
-
-	let currentRecord: LogTemplate | undefined = {
-		startDateTime: moment().toString(),
-	};
-
-	let status = ButtonStatus.INACTIVE;
-	let child = <LoadingIcon />;
-
-	if (container.length) {
-		currentRecord = container.pop()!;
-
-		if (currentRecord.startDateTime && !currentRecord.endDateTime) {
-			status = ButtonStatus.ACTIVE;
-		}
-	}
-
-	const onButtonToggle = () => {
-		if (status === ButtonStatus.INACTIVE) {
-			dispatch(createLog());
-		} else {
-			dispatch(completeLog({}));
-		}
-	};
-
+const MainStackScreen = () => {
 	return (
-		<Provider>
-			<SymptomReportModal />
-			<View style={Styles.container}>
-				<RecordIcon status={status} onButtonToggle={onButtonToggle} />
-			</View>
-		</Provider>
+		<MainStack.Navigator
+			initialRouteName={MainRoutes.HOME}
+			barStyle={Styles.bottomNavigator}
+			activeColor={ColorPalette.PRIMARY_BLUE}
+		>
+			<MainStack.Screen
+				name={MainRoutes.PRESCRIPTIONS}
+				component={HomeScreen}
+				options={{
+					tabBarIcon: RouteIcons.PRESCRIPTIONS,
+					tabBarAccessibilityLabel: MainRoutes.PRESCRIPTIONS,
+				}}
+			/>
+			<MainStack.Screen
+				name={MainRoutes.HOME}
+				component={HomeScreen}
+				options={{
+					tabBarIcon: RouteIcons.HOME,
+					tabBarAccessibilityLabel: MainRoutes.HOME,
+				}}
+			/>
+			<MainStack.Screen
+				name={MainRoutes.LOGS}
+				component={HomeScreen}
+				options={{
+					tabBarIcon: RouteIcons.LOGS,
+					tabBarAccessibilityLabel: MainRoutes.LOGS,
+				}}
+			/>
+		</MainStack.Navigator>
 	);
 };
 
-export default function App() {
+const App = () => {
 	return (
 		<ReduxProvider store={Store}>
-			<PaperProvider theme={CombinedDarkTheme}>
-				<NavigationContainer theme={CombinedDarkTheme}>
-					<Tab.Navigator initialRouteName={Routes.HOME}>
-						<Tab.Screen
-							name={Routes.PRESCRIPTIONS}
-							component={HomeScreen}
-							options={{ tabBarIcon: RouteIcons.PRESCRIPTIONS }}
-						/>
-						<Tab.Screen
-							name={Routes.HOME}
-							component={HomeScreen}
-							options={{ tabBarIcon: RouteIcons.HOME }}
-						/>
-						<Tab.Screen
-							name={Routes.LOGS}
-							component={HomeScreen}
-							options={{ tabBarIcon: RouteIcons.LOGS }}
-						/>
-					</Tab.Navigator>
-				</NavigationContainer>
-			</PaperProvider>
+			<NavigationContainer>
+				<RootStack.Navigator
+					mode='modal'
+					headerMode='none'
+					screenOptions={{ animationEnabled: true }}
+				>
+					<RootStack.Screen
+						name={MainRoutes.CONTAINER}
+						component={MainStackScreen}
+					/>
+					<RootStack.Screen
+						name={ModalRoutes.REPORT}
+						component={SymptomReportModal}
+					/>
+					<RootStack.Screen
+						name={ModalRoutes.LOADING}
+						component={LoadingModal}
+					/>
+				</RootStack.Navigator>
+			</NavigationContainer>
 		</ReduxProvider>
 	);
-}
+};
+
+export default App;

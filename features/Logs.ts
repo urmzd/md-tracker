@@ -59,15 +59,11 @@ export const completeLog = createAsyncThunk<
 		const { logs } = getState();
 		const container = [...logs.container];
 
-		const { headacheRating, numbnessRating, notes } = payload;
-
 		const startDateTime = container.pop()?.startDateTime!;
 		const updatedLog: LogTemplate = {
 			startDateTime,
 			endDateTime: moment().toString(),
-			headacheRating: headacheRating,
-			numbnessRating: numbnessRating,
-			notes: notes,
+			...payload,
 		};
 
 		const updatedLogs = [...container, updatedLog];

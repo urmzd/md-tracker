@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { IconButton, Colors } from 'react-native-paper';
-import { ButtonStatus } from '../constants/Misc';
+import React from 'react';
+import { IconButton } from 'react-native-paper';
+import { ButtonStatus, ColorPalette } from '../constants/Misc';
 
 enum RecordIcons {
 	PLAY = 'play',
@@ -28,9 +28,10 @@ const RecordIcon = ({ status, onButtonToggle }: RecordIconProps) => {
 	return (
 		<IconButton
 			icon={icon}
-			accessibilityValue={accessibilityValue}
+			accessibilityValue={{ text: accessibilityValue }}
 			size={100}
 			onPress={onButtonToggle}
+			color={ColorPalette.PRIMARY_BLUE}
 		/>
 	);
 };
