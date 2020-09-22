@@ -3,6 +3,7 @@
     "prettier.tabWidth": 4,
     "prettier.useTabs": true,
     "cSpell.words": [
+        "Appbar",
         "focusable",
         "reduxjs"
     ]

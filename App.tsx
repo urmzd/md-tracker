@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { enableScreens } from 'react-native-screens';
 import { Provider as ReduxProvider } from 'react-redux';
 import {
 	ColorPalette,
@@ -13,7 +12,11 @@ import {
 	RouteIcons,
 } from './constants/Misc';
 import { LoadingModal, SymptomReportModal } from './containers/overlays';
-import { HomeScreen } from './containers/views';
+import {
+	HomeScreen,
+	LogsScreen,
+	PrescriptionsScreen,
+} from './containers/views';
 import RootReducer from './features';
 
 export const Store = configureStore({
@@ -38,7 +41,7 @@ const MainStackScreen = () => {
 		>
 			<MainStack.Screen
 				name={MainRoutes.PRESCRIPTIONS}
-				component={HomeScreen}
+				component={PrescriptionsScreen}
 				options={{
 					tabBarIcon: RouteIcons.PRESCRIPTIONS,
 					tabBarAccessibilityLabel: MainRoutes.PRESCRIPTIONS,
@@ -54,7 +57,7 @@ const MainStackScreen = () => {
 			/>
 			<MainStack.Screen
 				name={MainRoutes.LOGS}
-				component={HomeScreen}
+				component={LogsScreen}
 				options={{
 					tabBarIcon: RouteIcons.LOGS,
 					tabBarAccessibilityLabel: MainRoutes.LOGS,
@@ -71,7 +74,9 @@ const App = () => {
 				<RootStack.Navigator
 					mode='modal'
 					headerMode='none'
-					screenOptions={{ animationEnabled: true }}
+					screenOptions={{
+						animationEnabled: true,
+					}}
 				>
 					<RootStack.Screen
 						name={MainRoutes.CONTAINER}

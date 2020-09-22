@@ -28,7 +28,6 @@ const SymptomScale = ({ name, value, setValue }: any) => {
 				style={{
 					flexDirection: 'row',
 					justifyContent: 'space-between',
-					overflow: 'hidden',
 				}}
 			>
 				<Subheading>{name}</Subheading>
@@ -45,9 +44,11 @@ const SymptomScale = ({ name, value, setValue }: any) => {
 			{toggleStatus && (
 				<Animated.View
 					style={{
-						overflow: 'hidden',
-						transformOrigin: 'top center',
-						transform: [{ scaleY: scaleOpacityAnim }],
+						transform: [
+							{
+								scaleY: scaleOpacityAnim,
+							},
+						],
 						opacity: scaleOpacityAnim,
 						paddingBottom: 6,
 					}}

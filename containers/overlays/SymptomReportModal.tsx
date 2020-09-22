@@ -6,6 +6,7 @@ import {
 	Divider,
 	Headline,
 	TextInput,
+	Title,
 } from 'react-native-paper';
 import { SymptomScale } from '../../components';
 import { ColorPalette, ModalRoutes, RouteIcons } from '../../constants/Misc';
@@ -146,17 +147,19 @@ const SymptomReportModal = ({ navigation }: any) => {
 				/>
 				<View style={Styles.saveButtonContainer}>
 					<Button
-						icon='content-save'
-						mode='outlined'
+						mode='contained'
 						accessibilityValue={{ text: 'Save Log Button' }}
 						focusable={true}
 						style={Styles.saveButton}
+						color={ColorPalette.PRIMARY_BLUE}
 						uppercase={true}
 						onPress={() => {
 							saveReport();
 						}}
 					>
-						Save Report
+						<Title style={{ color: ColorPalette.WHITE }}>
+							SAVE
+						</Title>
 					</Button>
 				</View>
 			</View>

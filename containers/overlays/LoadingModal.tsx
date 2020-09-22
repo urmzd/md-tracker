@@ -51,6 +51,7 @@ const LoadingModal = ({ navigation }: any) => {
 					accessibilityValue={{ text: message }}
 					focusable={false}
 					style={{ paddingBottom: 12 }}
+					size='large'
 				/>
 			) : (
 				<IconButton
@@ -59,6 +60,7 @@ const LoadingModal = ({ navigation }: any) => {
 					style={{
 						padding: 12,
 					}}
+					size={50}
 					accessibilityValue={{ text: 'Loading Complete' }}
 				/>
 			)}

@@ -100,7 +100,6 @@ interface LogsSlice {
 	container: LogTemplateArray;
 	status: Statuses;
 	error?: RejectedPayload;
-	errorCounter?: 0 | 1 | 2;
 }
 
 const initialState: LogsSlice = {

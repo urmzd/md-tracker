@@ -26,9 +26,10 @@ export enum RouteIcons {
 }
 
 export enum ColorPalette {
-	PRIMARY_BLUE = '#000080',
-	SECONDARY_BLUE = '#0000c9',
-	PRIMARY_GREEN = '#0F0',
-	PRIMARY_GREY = '#E9E9E9',
+	PRIMARY_BLUE = '#5DA2D5',
+	SECONDARY_BLUE = '#90CCF4',
+	PRIMARY_GREEN = '#57BA98',
+	PRIMARY_GREY = '#ECECEC',
+	PRIMARY_RED = '#E85A4F',
 	WHITE = '#FFF',
 }
