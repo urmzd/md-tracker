@@ -10,7 +10,7 @@ interface Prescription {
 	dosage: number;
 	dosageUnit: string;
 	dates: Array<number>;
-	times: Array<number>;
+	times: Array<string>;
 }
 
 interface PrescriptionsSlice {

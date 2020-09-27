@@ -5,19 +5,25 @@ import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as PaperProvider } from 'react-native-paper';
 import {
 	ColorPalette,
 	MainRoutes,
 	ModalRoutes,
 	RouteIcons,
 } from './constants/Misc';
-import { LoadingModal, SymptomReportModal } from './containers/overlays';
+import {
+	LoadingModal,
+	PrescriptionModal,
+	SymptomReportModal,
+} from './containers/modals';
 import {
 	HomeScreen,
 	LogsScreen,
 	PrescriptionsScreen,
 } from './containers/views';
 import RootReducer from './features';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export const Store = configureStore({
 	reducer: RootReducer,
@@ -70,28 +76,36 @@ const MainStackScreen = () => {
 const App = () => {
 	return (
 		<ReduxProvider store={Store}>
-			<NavigationContainer>
-				<RootStack.Navigator
-					mode='modal'
-					headerMode='none'
-					screenOptions={{
-						animationEnabled: true,
-					}}
-				>
-					<RootStack.Screen
-						name={MainRoutes.CONTAINER}
-						component={MainStackScreen}
-					/>
-					<RootStack.Screen
-						name={ModalRoutes.REPORT}
-						component={SymptomReportModal}
-					/>
-					<RootStack.Screen
-						name={ModalRoutes.LOADING}
-						component={LoadingModal}
-					/>
-				</RootStack.Navigator>
-			</NavigationContainer>
+			<SafeAreaProvider>
+				<PaperProvider>
+					<NavigationContainer>
+						<RootStack.Navigator
+							mode='modal'
+							headerMode='none'
+							screenOptions={{
+								animationEnabled: true,
+							}}
+						>
+							<RootStack.Screen
+								name={MainRoutes.CONTAINER}
+								component={MainStackScreen}
+							/>
+							<RootStack.Screen
+								name={ModalRoutes.SYMPTOM_REPORT}
+								component={SymptomReportModal}
+							/>
+							<RootStack.Screen
+								name={ModalRoutes.LOADING}
+								component={LoadingModal}
+							/>
+							<RootStack.Screen
+								name={ModalRoutes.PRESCRIPTION}
+								component={PrescriptionModal}
+							/>
+						</RootStack.Navigator>
+					</NavigationContainer>
+				</PaperProvider>
+			</SafeAreaProvider>
 		</ReduxProvider>
 	);
 };

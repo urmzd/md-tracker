@@ -28,6 +28,7 @@ const RecordIcon = ({ status, onButtonToggle }: RecordIconProps) => {
 	return (
 		<IconButton
 			icon={icon}
+			animated={true}
 			accessibilityValue={{ text: accessibilityValue }}
 			size={100}
 			onPress={onButtonToggle}

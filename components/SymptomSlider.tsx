@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Slider } from 'react-native-elements';
-import { Surface } from 'react-native-paper';
+import { Paragraph, Surface } from 'react-native-paper';
 import { ColorPalette } from '../constants/Misc';
 enum Dimensions {
 	TRACK_HEIGHT = 10,
@@ -36,14 +36,14 @@ const CircleWithValue = ({ value }: { value: number }) => {
 			style={Styles.circle}
 			focusable={false}
 		>
-			<Text
+			<Paragraph
 				style={{
 					color: ColorPalette.PRIMARY_BLUE,
 					fontWeight: '600',
 				}}
 			>
 				{value}
-			</Text>
+			</Paragraph>
 		</Surface>
 	);
 };

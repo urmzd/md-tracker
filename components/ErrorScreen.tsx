@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { IconButton } from 'react-native-paper';
+import { View } from 'react-native';
+import { IconButton, Paragraph } from 'react-native-paper';
 import { ColorPalette } from '../constants/Misc';
 
-const EmptyScreen = ({ message }: any) => {
+const EmptyScreen = ({ message }: { message: string }) => {
 	return (
 		<View
 			style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
@@ -15,9 +15,11 @@ const EmptyScreen = ({ message }: any) => {
 					padding: 12,
 				}}
 				size={50}
-				accessibilityValue={{ text: 'Loading Complete' }}
+				accessibilityValue={{ text: 'Error Icon' }}
 			/>
-			<Text style={{ textAlign: 'center', padding: 12 }}>{message}</Text>
+			<Paragraph style={{ textAlign: 'center', padding: 12 }}>
+				{message}
+			</Paragraph>
 		</View>
 	);
 };

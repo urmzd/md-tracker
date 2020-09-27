@@ -1,31 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MainRoutes } from '../constants/Misc';
+import { Statuses } from '../constants/Redux';
 
+interface LoadingScreenSlice {
+	route: MainRoutes;
+	status: Statuses;
+}
+const initialState: LoadingScreenSlice = {
+	route: MainRoutes.HOME,
+	status: Statuses.PENDING,
+};
 const loadingScreen = createSlice({
 	name: 'loadingScreen',
-	initialState: {
-		visibility: false,
-		message: '',
-		route: MainRoutes.HOME,
-	},
+	initialState,
 	reducers: {
-		startLoadingScreen: (state, action) => {
-			state.message = action.payload;
-			state.visibility = true;
-		},
-		clearLoadingScreen: (state, action) => {
-			state.message = action.payload;
-			state.visibility = false;
+		clearRoute: (state) => {
+			(state.route = MainRoutes.HOME),
+				(state.status = Statuses.FULFILLED);
 		},
 		setRoute: (state, action) => {
 			state.route = action.payload;
+			state.status = Statuses.PENDING;
 		},
 	},
 });
 
-export const {
-	startLoadingScreen,
-	clearLoadingScreen,
-	setRoute,
-} = loadingScreen.actions;
+export const { clearRoute, setRoute } = loadingScreen.actions;
 export default loadingScreen.reducer;

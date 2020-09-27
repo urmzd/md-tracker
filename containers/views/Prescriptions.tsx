@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, View } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FAB, Portal } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { ColorPalette } from '../../constants/Misc';
+import { ColorPalette, MainRoutes, ModalRoutes } from '../../constants/Misc';
 import { Statuses } from '../../constants/Redux';
 import { ErrorScreen } from '../../components';
 import { useAppDispatch } from '../../utils/Redux';
 import { fetchPrescriptions } from '../../features/Prescriptions';
 import { RootState } from '../../types';
+import { setRoute } from '../../features/LoadingModal';
 
 const Prescriptions = ({ navigation }: any) => {
 	const prescriptions = useSelector(
@@ -25,25 +27,35 @@ const Prescriptions = ({ navigation }: any) => {
 		child = <ErrorScreen message={prescriptions.error.message} />;
 	}
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
+		<SafeAreaView style={{ flex: 1, padding: 16 }}>
 			<View
 				style={{
-					padding: 16,
 					flex: 1,
-					justifyContent: 'flex-end',
-					alignItems: 'flex-end',
+					justifyContent: 'center',
+					alignItems: 'center',
 				}}
 			>
 				{child}
+			</View>
+			<View
+				style={{
+					justifyContent: 'flex-end',
+					alignItems: 'center',
+				}}
+			>
 				<FAB
 					small
 					icon='plus'
 					accessibilityValue={{ text: 'Add Prescription' }}
 					focusable={true}
 					style={{
-						borderRadius: 100,
 						backgroundColor: ColorPalette.PRIMARY_BLUE,
 						padding: 4,
+					}}
+					color={ColorPalette.WHITE}
+					onPress={() => {
+						dispatch(setRoute(MainRoutes.PRESCRIPTIONS));
+						navigation.navigate(ModalRoutes.PRESCRIPTION);
 					}}
 				/>
 			</View>

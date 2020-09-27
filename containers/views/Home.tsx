@@ -1,9 +1,10 @@
 import moment from 'moment';
 import React, { useEffect } from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { RecordIcon } from '../../components';
 import { ButtonStatus, MainRoutes, ModalRoutes } from '../../constants/Misc';
+import { Statuses } from '../../constants/Redux';
 import { setRoute } from '../../features/LoadingModal';
 import { fetchLogs, createLog } from '../../features/Logs';
 import { RootState, LogTemplate } from '../../types';
@@ -12,6 +13,7 @@ import { useAppDispatch } from '../../utils/Redux';
 const Home = ({ navigation }: any) => {
 	const logs = useSelector((state: RootState) => state.logs);
 	const container = [...logs.container];
+	const status = logs.status;
 
 	const dispatch = useAppDispatch();
 
@@ -23,22 +25,12 @@ const Home = ({ navigation }: any) => {
 		startDateTime: moment().toString(),
 	};
 
-	let status = ButtonStatus.INACTIVE;
-
-	if (container.length) {
-		currentRecord = container.pop()!;
-
-		if (currentRecord.startDateTime && !currentRecord.endDateTime) {
-			status = ButtonStatus.ACTIVE;
-		}
-	}
-
 	const onButtonToggle = () => {
-		if (status === ButtonStatus.INACTIVE) {
+		if (status === Statuses.FULFILLED) {
 			dispatch(createLog());
 		} else {
 			dispatch(setRoute(MainRoutes.HOME));
-			navigation.navigate(ModalRoutes.REPORT);
+			navigation.navigate(ModalRoutes.SYMPTOM_REPORT);
 		}
 	};
 
@@ -46,7 +38,14 @@ const Home = ({ navigation }: any) => {
 		<SafeAreaView
 			style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
 		>
-			<RecordIcon status={status} onButtonToggle={onButtonToggle} />
+			<RecordIcon
+				status={
+					status === Statuses.PENDING
+						? ButtonStatus.ACTIVE
+						: ButtonStatus.INACTIVE
+				}
+				onButtonToggle={onButtonToggle}
+			/>
 		</SafeAreaView>
 	);
 };

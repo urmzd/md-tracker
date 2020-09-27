@@ -123,8 +123,7 @@ const logs = createSlice({
 			};
 
 			container.push(defaultLog);
-
-			state.container = container;
+			(state.status = Statuses.PENDING), (state.container = container);
 		},
 	},
 	extraReducers: (builder) => {

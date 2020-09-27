@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
 import {
-	Button,
-	Caption,
-	Divider,
-	Headline,
-	TextInput,
-	Title,
-} from 'react-native-paper';
-import { SymptomScale } from '../../components';
-import { ColorPalette, ModalRoutes, RouteIcons } from '../../constants/Misc';
+	KeyboardAvoidingView,
+	Platform,
+	ScrollView,
+	StyleSheet,
+	View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button, Caption, Divider, Headline, Title } from 'react-native-paper';
+import { SymptomScale, TextInputWithHelper } from '../../components';
+import {
+	ColorPalette,
+	MainRoutes,
+	ModalRoutes,
+	RouteIcons,
+} from '../../constants/Misc';
 import { completeLog } from '../../features/Logs';
-import { startLoadingScreen } from '../../features/LoadingModal';
 import { SymptomScale as TSymptomScale } from '../../types';
 import { useAppDispatch } from '../../utils/Redux';
 
@@ -50,7 +54,7 @@ const Symptoms = [
 	'Dizziness',
 	'Unsteadiness',
 ];
-const SymptomReportModal = ({ navigation }: any) => {
+const SymptomReport = ({ navigation }: any) => {
 	const [notes, setNotes] = useState<string>('');
 	const [headache, setHeadache] = useState<TSymptomScale>(0);
 	const [numbness, setNumbness] = useState<TSymptomScale>(0);
@@ -60,30 +64,48 @@ const SymptomReportModal = ({ navigation }: any) => {
 	const [dizziness, setDizziness] = useState<TSymptomScale>(0);
 	const [unsteadiness, setUnsteadiness] = useState<TSymptomScale>(0);
 
-	const symptomValues = [
-		headache,
-		numbness,
-		visionLoss,
-		confusion,
-		nausea,
-		dizziness,
-		unsteadiness,
+	const symptomObjects = [
+		{
+			name: 'Headache',
+			value: headache,
+			setValue: setHeadache,
+		},
+		{
+			name: 'Numbness',
+			value: numbness,
+			setValue: setNumbness,
+		},
+		{
+			name: 'Vision Loss',
+			value: visionLoss,
+			setValue: setVisionLoss,
+		},
+		{
+			name: 'Confusion',
+			value: confusion,
+			setValue: setConfusion,
+		},
+		{
+			name: 'Nausea / Vomiting',
+			value: nausea,
+			setValue: setNausea,
+		},
+		{
+			name: 'Dizziness',
+			value: dizziness,
+			setValue: setDizziness,
+		},
+		{
+			name: 'Unsteadiness',
+			value: unsteadiness,
+			setValue: setUnsteadiness,
+		},
 	];
-	const symptomFunctions = [
-		setHeadache,
-		setNumbness,
-		setVisionLoss,
-		setConfusion,
-		setNausea,
-		setDizziness,
-		setUnsteadiness,
-	];
-
-	const dispatch = useAppDispatch();
 
 	const saveReport = () => {
-		dispatch(
-			completeLog({
+		navigation.navigate(ModalRoutes.LOADING, {
+			action: completeLog,
+			payload: {
 				headacheRating: headache,
 				numbnessRating: numbness,
 				visionLossRating: visionLoss,
@@ -92,16 +114,15 @@ const SymptomReportModal = ({ navigation }: any) => {
 				dizzinessRating: dizziness,
 				unsteadinessRating: unsteadiness,
 				notes,
-			})
-		);
-		dispatch(startLoadingScreen('Currently Saving...'));
-		navigation.navigate(ModalRoutes.LOADING);
+			},
+			stateSlice: MainRoutes.HOME.toLowerCase(),
+		});
 	};
 
 	return (
-		<View style={Styles.container}>
+		<SafeAreaView style={Styles.container}>
 			<View>
-				<Headline style={Styles.title}>Symptoms Report</Headline>
+				<Headline style={Styles.title}>SYMPTOMS REPORT</Headline>
 			</View>
 			<Divider
 				accessibilityValue={{ text: 'Screen Divider' }}
@@ -114,37 +135,29 @@ const SymptomReportModal = ({ navigation }: any) => {
 					justifyContent: 'space-between',
 					flexGrow: 1,
 				}}
+				horizontal={false}
 			>
-				{Symptoms.map((symptom: string, index: number) => {
-					return (
-						<SymptomScale
-							key={symptom}
-							name={symptom}
-							value={symptomValues[index]}
-							setValue={symptomFunctions[index]}
-						/>
-					);
+				{symptomObjects.map((symptom: any) => {
+					return <SymptomScale key={symptom.name} {...symptom} />;
 				})}
 			</ScrollView>
 			<Divider
 				accessibilityValue={{ text: 'Screen Divider' }}
 				focusable={false}
 			/>
-			<View style={{ justifyContent: 'space-between' }}>
+			<KeyboardAvoidingView
+				style={{ justifyContent: 'space-between' }}
+				behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+			>
 				<Caption>WRITE DOWN ADDITIONAL INFORMATION</Caption>
-				<TextInput
-					value={notes}
-					mode='outlined'
+				<TextInputWithHelper
+					inputValue={notes}
 					multiline={true}
 					numberOfLines={12}
-					accessibilityValue={{ text: 'Notes Input Box' }}
-					dense={false}
-					showSoftInputOnFocus={true}
-					focusable={true}
-					onChangeText={(notes: string) => setNotes(notes)}
+					setInputValue={setNotes}
 					placeholder={'Add a note here...'}
-					style={Styles.notes}
 				/>
+
 				<View style={Styles.saveButtonContainer}>
 					<Button
 						mode='contained'
@@ -153,18 +166,16 @@ const SymptomReportModal = ({ navigation }: any) => {
 						style={Styles.saveButton}
 						color={ColorPalette.PRIMARY_BLUE}
 						uppercase={true}
-						onPress={() => {
-							saveReport();
-						}}
+						onPress={() => saveReport()}
 					>
 						<Title style={{ color: ColorPalette.WHITE }}>
 							SAVE
 						</Title>
 					</Button>
 				</View>
-			</View>
-		</View>
+			</KeyboardAvoidingView>
+		</SafeAreaView>
 	);
 };
 
-export default SymptomReportModal;
+export default SymptomReport;

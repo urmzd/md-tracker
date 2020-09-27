@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, View } from 'react-native';
-import { Caption, Checkbox, Subheading } from 'react-native-paper';
+import { Animated, View, Switch } from 'react-native';
+import { Caption, Subheading } from 'react-native-paper';
 import { ButtonStatus, ColorPalette } from '../constants/Misc';
 import SymptomSlider from './SymptomSlider';
 
@@ -31,14 +31,19 @@ const SymptomScale = ({ name, value, setValue }: any) => {
 				}}
 			>
 				<Subheading>{name}</Subheading>
-				<Checkbox
-					status={
+				<Switch
+					trackColor={{
+						false: ColorPalette.SECONDARY_GREY,
+						true: ColorPalette.PRIMARY_BLUE,
+					}}
+					thumbColor={
 						toggleStatus
-							? ButtonStatus.ACTIVE
-							: ButtonStatus.INACTIVE
+							? ColorPalette.SECONDARY_BLUE
+							: ColorPalette.WHITE
 					}
-					onPress={() => setToggleStatus(!toggleStatus)}
-					color={ColorPalette.PRIMARY_BLUE}
+					onValueChange={setToggleStatus}
+					value={toggleStatus}
+					ios_backgroundColor={ColorPalette.PRIMARY_BLUE}
 				/>
 			</View>
 			{toggleStatus && (

@@ -15,8 +15,9 @@ export enum MainRoutes {
 	CONTAINER = 'Main',
 }
 export enum ModalRoutes {
-	REPORT = 'Report',
+	SYMPTOM_REPORT = 'Symptom Report',
 	LOADING = 'Loading',
+	PRESCRIPTION = 'Prescription',
 }
 
 export enum RouteIcons {
@@ -30,6 +31,7 @@ export enum ColorPalette {
 	SECONDARY_BLUE = '#90CCF4',
 	PRIMARY_GREEN = '#57BA98',
 	PRIMARY_GREY = '#ECECEC',
+	SECONDARY_GREY = '#ADADAD',
 	PRIMARY_RED = '#E85A4F',
 	WHITE = '#FFF',
 }
