@@ -5,7 +5,7 @@ import { ErrorMessages, Errors, Statuses } from '../constants/Redux';
 import Prescriptions from '../containers/views/Prescriptions';
 import { RejectedPayload, RootState } from '../types';
 
-interface Prescription {
+export interface Prescription {
 	name: string;
 	dosage: number;
 	dosageUnit: string;
@@ -41,6 +41,13 @@ export const fetchPrescriptions = createAsyncThunk<
 				const parsedPrescriptions: Array<Prescription> = JSON.parse(
 					prescriptions || '{}'
 				);
+
+				if (!parsedPrescriptions.length) {
+					return rejectWithValue({
+						type: Errors.EMPTY,
+						message: ErrorMessages.EMPTY_PRESCRIPTIONS,
+					});
+				}
 
 				return parsedPrescriptions;
 			} else {
@@ -81,32 +88,38 @@ export const addPrescription = createAsyncThunk<
 			return rejectWithValue({
 				type: Errors.STORING_ERROR,
 				message: ErrorMessages.STORING_ERROR,
-				data: prescriptions,
+				data: payload,
 			});
 		}
 	}
 );
 export const removePrescription = createAsyncThunk<
 	number,
-	PrescriptionID,
+	PrescriptionID | number,
 	{ rejectValue: RejectedPayload; state: RootState }
 >(
 	'prescriptions/removePrescription',
-	async (payload: PrescriptionID, { getState, rejectWithValue }) => {
+	async (payload: PrescriptionID | number, { getState, rejectWithValue }) => {
 		const state = getState();
-		const prescriptions = state.prescriptions.container;
+		const prescriptions = [...state.prescriptions.container];
 		let removeIndex = 0;
-		prescriptions.some((prescription: Prescription, index: number) => {
-			if (
-				prescription.dosage === payload.dosage &&
-				prescription.name === payload.name
-			) {
-				removeIndex = index;
-				return true;
-			}
 
-			return false;
-		});
+		if (typeof payload !== 'number') {
+			prescriptions.some((prescription: Prescription, index: number) => {
+				if (
+					prescription.dosage === payload.dosage &&
+					prescription.name === payload.name
+				) {
+					removeIndex = index;
+					return true;
+				}
+
+				return false;
+			});
+		} else {
+			console.log(payload);
+			removeIndex = payload;
+		}
 
 		prescriptions.splice(removeIndex, 1);
 
@@ -122,7 +135,7 @@ export const removePrescription = createAsyncThunk<
 			return rejectWithValue({
 				type: Errors.STORING_ERROR,
 				message: ErrorMessages.STORING_ERROR,
-				data: removeIndex,
+				data: payload,
 			});
 		}
 	}

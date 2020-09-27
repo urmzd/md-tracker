@@ -22,15 +22,45 @@ import { ColorPalette, MainRoutes, ModalRoutes } from '../../constants/Misc';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useAppDispatch } from '../../utils/Redux';
 import { addPrescription } from '../../features/Prescriptions';
+import { RootState } from '../../types';
+import { useSelector } from 'react-redux';
 
-const Prescription = ({ navigation }: any) => {
-	const [name, setName] = useState<string>('');
-	const [dosage, setDosage] = useState<number>(0);
-	const [dosageUnit, setDosageUnit] = useState<string>('');
-	const [selectedIndexes, setSelectedIndexes] = useState<Array<number>>([]);
-	const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const Prescription = ({ navigation, route }: any) => {
+	const prescriptions = useSelector(
+		(state: RootState) => state.prescriptions
+	);
+	let index = -1;
+	if (route.params) {
+		index = route.params.index;
+	}
+	const currentPrescription =
+		index === -1
+			? {
+					name: '',
+					dosage: 0,
+					dosageUnit: '',
+					times: [],
+					dates: [],
+			  }
+			: prescriptions.container[index];
 
-	const [times, setTimes] = useState<Array<string>>([]);
+	const [name, setName] = useState<string>(currentPrescription.name || '');
+	const [dosage, setDosage] = useState<number>(
+		currentPrescription.dosage || 0
+	);
+	const [dosageUnit, setDosageUnit] = useState<string>(
+		currentPrescription.dosageUnit || ''
+	);
+	const [selectedIndexes, setSelectedIndexes] = useState<Array<number>>(
+		currentPrescription.dates.length ? currentPrescription.dates : []
+	);
+	const days = [0, 1, 2, 3, 4, 5, 6].map((day: number) =>
+		moment(day, 'd').format('ddd')
+	);
+
+	const [times, setTimes] = useState<Array<string>>(
+		currentPrescription.times.length ? currentPrescription.times : []
+	);
 
 	const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
 
@@ -215,9 +245,11 @@ const Prescription = ({ navigation }: any) => {
 											<Avatar.Icon
 												{...props}
 												icon='timer'
-												color={
-													ColorPalette.PRIMARY_BLUE
-												}
+												color={ColorPalette.WHITE}
+												style={{
+													backgroundColor:
+														ColorPalette.PRIMARY_BLUE,
+												}}
 											/>
 										)}
 										accessibilityValue={{
@@ -237,13 +269,14 @@ const Prescription = ({ navigation }: any) => {
 						mode='contained'
 						focusable={true}
 						accessibilityValue={{
-							text: 'Delete Prescription Alarm ',
+							text: 'Close ',
 						}}
 						color={ColorPalette.PRIMARY_RED}
 						style={{ borderRadius: 100 }}
+						onPress={() => navigation.goBack()}
 					>
 						<Title style={{ color: ColorPalette.WHITE }}>
-							DELETE
+							CLOSE
 						</Title>
 					</Button>
 				</View>

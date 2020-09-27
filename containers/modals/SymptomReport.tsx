@@ -115,7 +115,7 @@ const SymptomReport = ({ navigation }: any) => {
 				unsteadinessRating: unsteadiness,
 				notes,
 			},
-			stateSlice: MainRoutes.HOME.toLowerCase(),
+			stateSlice: MainRoutes.LOGS.toLowerCase(),
 		});
 	};
 

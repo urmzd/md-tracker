@@ -8,22 +8,18 @@ interface LoadingScreenSlice {
 }
 const initialState: LoadingScreenSlice = {
 	route: MainRoutes.HOME,
-	status: Statuses.PENDING,
+	status: Statuses.FULFILLED,
 };
 const loadingScreen = createSlice({
 	name: 'loadingScreen',
 	initialState,
 	reducers: {
-		clearRoute: (state) => {
-			(state.route = MainRoutes.HOME),
-				(state.status = Statuses.FULFILLED);
-		},
 		setRoute: (state, action) => {
 			state.route = action.payload;
-			state.status = Statuses.PENDING;
+			state.status = Statuses.FULFILLED;
 		},
 	},
 });
 
-export const { clearRoute, setRoute } = loadingScreen.actions;
+export const { setRoute } = loadingScreen.actions;
 export default loadingScreen.reducer;

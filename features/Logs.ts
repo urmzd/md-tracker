@@ -77,7 +77,7 @@ export const completeLog = createAsyncThunk<
 			return rejectWithValue({
 				type: Errors.STORING_ERROR,
 				message: ErrorMessages.STORING_ERROR,
-				data: updatedLog,
+				data: payload,
 			});
 		}
 	},
