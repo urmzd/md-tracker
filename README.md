@@ -7,4 +7,4 @@ React-Native was chosen as the framework for this project because it could reach
 To run the project, enter the following commands(s):
 `npm install expo-cli`,`expo install` then `expo start`.
 
-The application can be ran as a website, an IOS application or an Android application. Enjoy!
+The application can be ran on IOS and Apple!. Enjoy!
