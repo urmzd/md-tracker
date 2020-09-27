@@ -21,7 +21,10 @@ import TextInputWithHelper from '../../components/TextInputWithHelper';
 import { ColorPalette, MainRoutes, ModalRoutes } from '../../constants/Misc';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useAppDispatch } from '../../utils/Redux';
-import { addPrescription } from '../../features/Prescriptions';
+import {
+	addPrescription,
+	editPrescription,
+} from '../../features/Prescriptions';
 import { RootState } from '../../types';
 import { useSelector } from 'react-redux';
 
@@ -75,15 +78,23 @@ const Prescription = ({ navigation, route }: any) => {
 	};
 
 	const savePrescription = () => {
+		const action = index === -1 ? addPrescription : editPrescription;
+		const payload =
+			index === -1
+				? { name, dosage, dosageUnit, dates: selectedIndexes, times }
+				: {
+						id: index,
+						prescription: {
+							name,
+							dosage,
+							dosageUnit,
+							dates: selectedIndexes,
+							times,
+						},
+				  };
 		navigation.navigate(ModalRoutes.LOADING, {
-			action: addPrescription,
-			payload: {
-				name,
-				dosage,
-				dosageUnit,
-				dates: selectedIndexes,
-				times,
-			},
+			action: action,
+			payload: payload,
 			stateSlice: MainRoutes.PRESCRIPTIONS.toLowerCase(),
 		});
 	};

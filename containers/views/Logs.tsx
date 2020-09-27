@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Avatar, Card, Searchbar } from 'react-native-paper';
+import {
+	Avatar,
+	Card,
+	Searchbar,
+	Title,
+	Button,
+	IconButton,
+} from 'react-native-paper';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ColorPalette } from '../../constants/Misc';
@@ -10,7 +17,22 @@ import moment from 'moment';
 const Logs = ({ navigation }: any) => {
 	const [query, setQuery] = useState<string>('');
 	const logs = useSelector((state: RootState) => state.logs);
-	const container = [...logs.container];
+	const [data, setData] = useState<Array<LogTemplate>>([...logs.container]);
+
+	const filterByQuery = (query: string) => {
+		const filteredData = logs.container.filter((log: LogTemplate) => {
+			let { startDateTime, endDateTime } = log;
+			startDateTime = moment(startDateTime).format('MM-DD-YYYY HH:mm A');
+			endDateTime = moment(endDateTime).format('MM-DD-YYYY HH:mm A');
+
+			return (
+				startDateTime.includes(query) || endDateTime?.includes(query)
+			);
+		});
+
+		setQuery(query);
+		setData(filteredData);
+	};
 
 	return (
 		<SafeAreaView>
@@ -19,7 +41,7 @@ const Logs = ({ navigation }: any) => {
 					<Searchbar
 						placeholder='Search...'
 						value={query}
-						onChangeText={(query: string) => setQuery(query)}
+						onChangeText={(query: string) => filterByQuery(query)}
 						style={{ backgroundColor: ColorPalette.WHITE }}
 						accessibilityValue={{ text: 'search bar' }}
 						focusable={true}
@@ -34,10 +56,11 @@ const Logs = ({ navigation }: any) => {
 						paddingBottom: 8,
 					}}
 				>
-					{container.map((log: LogTemplate, index: number) => {
+					{data.map((log: LogTemplate, index: number) => {
 						const { startDateTime, endDateTime } = log;
 						return (
 							<View
+								key={index}
 								style={{
 									flex: 1,
 									paddingTop: 8,
@@ -48,7 +71,6 @@ const Logs = ({ navigation }: any) => {
 									accessibilityValue={{
 										text: 'Symptom Record',
 									}}
-									key={index}
 									focusable={true}
 								>
 									<Card.Title
@@ -73,12 +95,34 @@ const Logs = ({ navigation }: any) => {
 												}}
 											/>
 										)}
+										right={(props: any) => (
+											<IconButton
+												icon='download'
+												color={
+													ColorPalette.PRIMARY_BLUE
+												}
+												{...props}
+											/>
+										)}
 									></Card.Title>
 								</Card>
 							</View>
 						);
 					})}
 				</ScrollView>
+				<View style={{ flex: 1 }}>
+					<Button
+						mode='contained'
+						accessibilityValue={{ text: 'Download All Button' }}
+						focusable={true}
+						color={ColorPalette.PRIMARY_BLUE}
+						style={{ borderRadius: 100 }}
+					>
+						<Title style={{ color: ColorPalette.WHITE }}>
+							DOWNLOAD ALL
+						</Title>
+					</Button>
+				</View>
 			</View>
 		</SafeAreaView>
 	);

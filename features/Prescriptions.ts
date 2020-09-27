@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Keys } from '../constants/Misc';
 import { ErrorMessages, Errors, Statuses } from '../constants/Redux';
-import Prescriptions from '../containers/views/Prescriptions';
 import { RejectedPayload, RootState } from '../types';
 
 export interface Prescription {
@@ -60,6 +59,38 @@ export const fetchPrescriptions = createAsyncThunk<
 			return rejectWithValue({
 				type: Errors.RETRIEVAL_ERROR,
 				message: ErrorMessages.RETRIEVAL_ERROR,
+			});
+		}
+	}
+);
+interface PrescriptionWithId {
+	prescription: Prescription;
+	id: number;
+}
+
+export const editPrescription = createAsyncThunk<
+	PrescriptionWithId,
+	PrescriptionWithId,
+	{ rejectValue: RejectedPayload; state: RootState }
+>(
+	'prescription/editPrescription',
+	async (payload: PrescriptionWithId, { getState, rejectWithValue }) => {
+		const state = getState();
+		const prescriptions = [...state.prescriptions.container];
+		prescriptions.splice(payload.id, 1, payload.prescription);
+		const serializedPrescriptions = JSON.stringify(prescriptions);
+		try {
+			await AsyncStorage.setItem(
+				Keys.PRESCRIPTIONS,
+				serializedPrescriptions
+			);
+
+			return payload;
+		} catch (error) {
+			return rejectWithValue({
+				type: Errors.STORING_ERROR,
+				message: ErrorMessages.STORING_ERROR,
+				data: payload,
 			});
 		}
 	}
@@ -184,6 +215,20 @@ export const prescriptions = createSlice({
 		});
 		builder.addCase(fetchPrescriptions.pending, (state) => {
 			state.status = Statuses.PENDING;
+		});
+		builder.addCase(editPrescription.fulfilled, (state, action) => {
+			const { id, prescription } = action.payload;
+			const tempPrescriptions = [...state.container];
+			tempPrescriptions.splice(id, 1, prescription);
+			state.status = Statuses.FULFILLED;
+			state.container = tempPrescriptions;
+		});
+		builder.addCase(editPrescription.pending, (state) => {
+			state.status = Statuses.FULFILLED;
+		});
+		builder.addCase(editPrescription.rejected, (state, action) => {
+			state.status = Statuses.REJECTED;
+			state.error = action.payload;
 		});
 	},
 });

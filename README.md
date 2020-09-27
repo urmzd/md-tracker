@@ -1,4 +1,4 @@
-# ProCog (short for Pro-Cognition)
+# ProCog (Pro-Cognition) -- Currently in Beta
 
 This project is dedicated to helping those with neurological impairments keep up to date with their prescriptions and to keep a log of their symptoms.
 
@@ -8,3 +8,8 @@ To run the project, enter the following commands(s):
 `npm install expo-cli`,`expo install` then `expo start`.
 
 The application can be ran on IOS and Apple!. Enjoy!
+
+Future:
+
+1. Implement ML techniques to help individuals determine possible stressors.
+2. General Statistic Analysis
