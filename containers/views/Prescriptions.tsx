@@ -1,31 +1,27 @@
+import moment from 'moment';
 import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import {
 	Avatar,
 	Button,
 	Card,
 	FAB,
-	IconButton,
 	Paragraph,
-	Portal,
 	Subheading,
 } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
+import { ErrorScreen } from '../../components';
 import { ColorPalette, MainRoutes, ModalRoutes } from '../../constants/Misc';
 import { Statuses } from '../../constants/Redux';
-import { ErrorScreen } from '../../components';
-import { useAppDispatch } from '../../utils/Redux';
+import { setRoute } from '../../features/LoadingModal';
 import {
 	fetchPrescriptions,
 	Prescription,
-	prescriptions,
 	removePrescription,
 } from '../../features/Prescriptions';
 import { RootState } from '../../types';
-import { setRoute } from '../../features/LoadingModal';
-import moment from 'moment';
-import { useIsFocused } from '@react-navigation/native';
+import { useAppDispatch } from '../../utils/Redux';
 
 const Prescriptions = ({ navigation }: any) => {
 	const prescriptions = useSelector(

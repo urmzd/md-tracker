@@ -14,6 +14,7 @@ import {
 	LogTemplateArray,
 	RootState,
 } from '../types';
+import * as FileSystem from 'expo-file-system';
 
 type OptionalLogTemplateProperties = Omit<
 	LogTemplate,
@@ -45,6 +46,47 @@ export const fetchLogs = createAsyncThunk<
 		});
 	}
 });
+
+export const downloadLog = createAsyncThunk<
+	undefined,
+	number | 'all',
+	{ rejectValue: RejectedPayload; state: RootState }
+>(
+	'logs/downloadLog',
+	async (payload: number | 'all', { getState, rejectWithValue }) => {
+		const header = `Start Date and Time, End Date and Time, Headache Rating, Numbness Rating, Vision Loss Rating, Confusion Rating, Dizziness Rating, Unsteadiness Rating, Notes`;
+
+		const state = getState();
+		let body = '';
+
+		let logs =
+			payload === 'all'
+				? [...state.logs.container]
+				: [...state.logs.container.slice(payload, payload + 1)];
+
+		const container = logs.forEach((log: LogTemplate) => {
+			const row = Object.values(log).join(', ');
+			body += `${row}\n`;
+		});
+
+		const csv = `${header}\n${body}`;
+		const fileDir = `${FileSystem.documentDirectory}/${moment().format(
+			'YYYY-MM-DD-hh:mm-A'
+		)}.csv`;
+
+		console.log(csv);
+		try {
+			await FileSystem.writeAsStringAsync(fileDir, csv);
+			return undefined;
+		} catch (error) {
+			return rejectWithValue({
+				type: Errors.STORING_ERROR,
+				message: ErrorMessages.STORING_ERROR,
+				data: { fileDir, csv },
+			});
+		}
+	}
+);
 
 export const completeLog = createAsyncThunk<
 	LogTemplate,
@@ -149,6 +191,16 @@ const logs = createSlice({
 		builder.addCase(fetchLogs.rejected, (state, action) => {
 			state.error = action.payload;
 			state.status = Statuses.REJECTED;
+		});
+		builder.addCase(downloadLog.fulfilled, (state) => {
+			state.status = Statuses.FULFILLED;
+		});
+		builder.addCase(downloadLog.pending, (state) => {
+			state.status = Statuses.PENDING;
+		});
+		builder.addCase(downloadLog.rejected, (state, action) => {
+			state.status = Statuses.REJECTED;
+			state.error = action.payload;
 		});
 	},
 });

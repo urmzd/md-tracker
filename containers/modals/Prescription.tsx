@@ -137,6 +137,7 @@ const Prescription = ({ navigation, route }: any) => {
 						setShowTimePicker(false);
 					}}
 					display='default'
+					isDarkModeEnabled={false}
 				/>
 			</View>
 
