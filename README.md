@@ -1,4 +1,4 @@
-# Proactive Cognitio
+# Proactive Cognition
 
 This project is dedicated to helping those with neurological impairments keep up to date with their prescriptions and to keep a log of their symptoms.
 
