@@ -8,3 +8,10 @@
 - Keep track of headaches & other symptoms;
 - Keep track of food & water intake;
 - Store & retrieve data from logs;
+
+### Possible Stack
+
+- Amplify
+- AppSync
+- DynamoDB
+- Cognito
