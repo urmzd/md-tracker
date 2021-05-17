@@ -1,7 +1,5 @@
 # Neuro Tracker
 
----
-
 ### Purpose
 
 - Keep track of prescriptions (alarms, dosage, etc...);
