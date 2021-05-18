@@ -1,29 +1,24 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "neuro-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Neuro Tracker",
+  "author": "Urmzd",
+  "keywords": [
+    "gatsby"
+  ],
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
   },
   "dependencies": {
-    "expo": "^40.0.1",
-    "expo-status-bar": "^1.0.4",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
-    "react-native-web": "~0.13.12"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@types/react": "~16.9.35",
-    "@types/react-dom": "^16.9.13",
-    "@types/react-native": "^0.63.52",
-    "@typescript-eslint/eslint-plugin": "^4.24.0",
-    "@typescript-eslint/parser": "^4.24.0",
-    "eslint": "^7.26.0",
-    "prettier": "2.2.1",
-    "typescript": "^4.2.4"
+    "gatsby": "^3.4.1",
+    "gatsby-plugin-manifest": "^3.5.0",
+    "gatsby-plugin-sitemap": "^4.1.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   }
 }
