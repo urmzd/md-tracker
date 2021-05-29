@@ -60,7 +60,7 @@ buck-out/
 
 # Expo
 .expo/*
-web-build/
+        web-build/
 
 #amplify
 amplify/\#current-cloud-backend
@@ -81,3 +81,6 @@ amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
+
+#gatsby
+public
