@@ -2,7 +2,7 @@ name: Neuro Tracker REST API
 on:
   push:
     branches:
-      - "main"
+      - main
     paths:
       - "backend/**"
       - "api/**"
