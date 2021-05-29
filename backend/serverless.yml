@@ -20,7 +20,6 @@ resources:
         GenerateSecretString:
           SecretStringTemplate: '{"username": "master"}'
           GenerateStringKey: "password"
-          PasswordLength: 32
           ExcludeCharacters: '"@/\'
 
     NeuroTrackerDataAPIDearLife:
@@ -39,4 +38,4 @@ resources:
         EngineMode: serverless
         EngineVersion: "5.7.12"
         MasterUsername: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
-        MasterUserPassword: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
+        MasterUserPassword: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::password}}"
