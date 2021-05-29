@@ -1,11 +1,8 @@
-name: Neuro Tracker REST API
+name: backend-deploy
 on:
   push:
-    branches:
-      - main
     paths:
       - "backend/**"
-      - "api/**"
       - ".github"
 
 jobs:
