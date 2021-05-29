@@ -39,4 +39,4 @@ resources:
         EngineMode: serverless
         EngineVersion: "5.7.12"
         MasterUsername: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
-        MasterUsernamePassword: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
+        MasterUserPassword: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
