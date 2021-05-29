@@ -31,7 +31,7 @@ resources:
 
     NeuroTrackerRDS:
       Type: AWS::RDS::DBCluster,
-      DatabaseName: "neuro-tracker-db"
+      DatabaseName: "neurotrackerdb"
       EnableHttpEndpoint: true,
       Engine: aurora-mysql
       EngineMode: serverless
