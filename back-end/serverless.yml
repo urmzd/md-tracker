@@ -11,3 +11,28 @@ functions:
     handler: handler.hello
 
 resources:
+  NeuroTrackerRDSSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: "RDS DB Credentials"
+      Description: "Credentials for Neuro Tracker DB"
+      GenerateSecretString: '{"username": "master"}'
+      PasswordLength: 32
+      ExcludeCharacters: '"@/\"'
+
+  NeuroTrackerDataAPIDearLife:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId: !Ref NeuroTrackerRDSSecret
+      TargetId: !Ref NeuroTrackerRDS
+      TargetType: AWS::RDS::DBCluster
+
+  NeuroTrackerRDS:
+    Type: AWS::RDS::DBCluster,
+    DatabaseName: "neuro-tracker-db"
+    EnableHttpEndpoint: true,
+    Engine: aurora-mysql
+    EngineMode: serverless
+    EngineVersion: "5.7.12"
+    MasterUsername: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
+    MasterUserNamePassword: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
