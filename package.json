@@ -21,6 +21,7 @@
     "posttest": "npm run lint"
   },
   "dependencies": {
+    "@types/react-router": "^5.1.14",
     "gatsby": "^3.4.1",
     "gatsby-plugin-manifest": "^3.5.0",
     "gatsby-plugin-sitemap": "^4.1.0",

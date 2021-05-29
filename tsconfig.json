@@ -4,7 +4,8 @@
     "rootDir": ".",
     "outDir": "build",
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.tsx", "tsx/**/*.ts"]
 }
