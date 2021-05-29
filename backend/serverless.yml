@@ -18,7 +18,7 @@ resources:
       Properties:
         Name: "RDS DB Credentials"
         GenerateSecretString:
-          SecretTemplate: '{"username": "master"}'
+          SecretStringTemplate: '{"username": "master"}'
           GenerateStringKey: "password"
           PasswordLength: 32
           ExcludeCharacters: '"@/\'
