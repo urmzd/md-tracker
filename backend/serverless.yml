@@ -17,10 +17,11 @@ resources:
       Type: AWS::SecretsManager::Secret
       Properties:
         Name: "RDS DB Credentials"
-        Description: "Credentials for Neuro Tracker DB"
-        GenerateSecretString: '{"username": "master"}'
-        PasswordLength: 32
-        ExcludeCharacters: '"@/\'
+        GenerateSecretString:
+          SecretTemplate: '{"username": "master"}'
+          GenerateStringKey: "password"
+          PasswordLength: 32
+          ExcludeCharacters: '"@/\'
 
     NeuroTrackerDataAPIDearLife:
       Type: AWS::SecretsManager::SecretTargetAttachment
