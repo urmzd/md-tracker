@@ -39,3 +39,8 @@ resources:
         EngineVersion: "5.7.12"
         MasterUsername: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
         MasterUserPassword: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::password}}"
+        ScalingConfiguration:
+          AutoPause: true
+          MinCapacity: 1
+          MaxCapacity: 2
+          SecondsUntilAutoPause: 86399
