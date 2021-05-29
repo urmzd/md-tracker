@@ -20,5 +20,5 @@ jobs:
           aws-region: "us-east-1"
       - run: npm install -g serverless
         working-directory: ./backend
-      - run: npm run deploy
+      - run: npx sls deploy
         working-directory: ./backend
