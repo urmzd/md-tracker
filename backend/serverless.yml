@@ -20,7 +20,7 @@ resources:
         Description: "Credentials for Neuro Tracker DB"
         GenerateSecretString: '{"username": "master"}'
         PasswordLength: 32
-        ExcludeCharacters: '"@/\"'
+        ExcludeCharacters: '"@/\'
 
     NeuroTrackerDataAPIDearLife:
       Type: AWS::SecretsManager::SecretTargetAttachment
