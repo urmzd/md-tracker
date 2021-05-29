@@ -16,7 +16,7 @@ resources:
     NeuroTrackerRDSSecret:
       Type: AWS::SecretsManager::Secret
       Properties:
-        Name: "RDS DB Credentials"
+        Name: "rds-data-api-string"
         GenerateSecretString:
           SecretStringTemplate: '{"username": "master"}'
           GenerateStringKey: "password"
