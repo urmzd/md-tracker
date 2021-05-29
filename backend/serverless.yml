@@ -31,10 +31,11 @@ resources:
 
     NeuroTrackerRDS:
       Type: AWS::RDS::DBCluster
-      DatabaseName: "neurotrackerdb"
-      EnableHttpEndpoint: true
-      Engine: aurora-mysql
-      EngineMode: serverless
-      EngineVersion: "5.7.12"
-      MasterUsername: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
-      MasterUserNamePassword: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
+      Properties:
+        DatabaseName: "neurotrackerdb"
+        EnableHttpEndpoint: true
+        Engine: aurora-mysql
+        EngineMode: serverless
+        EngineVersion: "5.7.12"
+        MasterUsername: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
+        MasterUserNamePassword: !Sub "{{resolve:secretsmanager:${NeuroTrackerRDSSecret}::username}}"
