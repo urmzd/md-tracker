@@ -42,27 +42,27 @@ class User
   end
 
   # Accessors
-  def get_id
+  def id
     return @id
   end
 
-  def get_name
+  def name
     return @first_name + " " + @last_name
   end
 
-  def get_phone
+  def phone
     return @phone_number
   end
 
-  def get_schedules
+  def schedules
     return @schedules
   end
 
-  def get_prescriptions
+  def prescriptions
     return @prescriptions
   end
 
-  def get_entries
+  def entries
     return @entries
   end
 end
