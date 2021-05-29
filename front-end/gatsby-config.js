@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "Neuro Tracker",
+    title: "neuro tracker",
   },
   plugins: [
     "gatsby-plugin-sitemap",
