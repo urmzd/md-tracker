@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "neuro tracker",
+    title: "Neuro Tracker",
     siteUrl: "https://neuro-tracker.urmzd.com",
   },
   plugins: [
