@@ -6,8 +6,8 @@ A health tracker designed to help individuals with neurological disorders.
 
 - [ ] Real Time Feedback
 
-- [ ] Allow users to set perscription reminders (push notification / alarm)
-      Perscription Vyvanse 60mg
+- [ ] Allow users to set prescription's reminders (push notification / alarm)
+      Prescription Vyvanse 60mg
 
   ```
   Prescription_Public: {
@@ -29,12 +29,12 @@ A health tracker designed to help individuals with neurological disorders.
 - [ ] Allow users to store/retrieve logs.
 
   ```
-  Symptom_Classifer {
+  Symptom_Classifier {
   name: string;
   description: string;
   }
 
-  Symptom_Instance: Symptom_Classifer & {
+  Symptom_Instance: Symptom_Classifier & {
   start: DateTime
   end: DateTime
   severity: number (/10)
@@ -46,11 +46,17 @@ A health tracker designed to help individuals with neurological disorders.
 
 - Users should be able to sign up
   - First Name, Last Name, Phone Number
-- Users should be able to create/read/delete/update perscriptions
+- Users should be able to create/read/delete/update prescriptions
 - Users should be able to create/read/delete/update logs
-- Users should recieve push notifications based on perscription datetime.
+- Users should receive push notifications based on prescription datetime.
 
 ## Stack:
+
+### FrontEnd:
+
+- Elm
+
+### BackEnd:
 
 - AWS API Gateway
 - AWS Lambda
