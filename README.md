@@ -1,64 +1,19 @@
-### Neuro Tracker
+# Neuro Tracker
 
-A health tracker designed to help individuals with neurological disorders.
+## About
 
-## Objectives:
+**Neuro Tracker** is a health tool designed to reduce the information gap between
+individuals with neurological conditions and their health-care providers.
 
-- [ ] Real Time Feedback
+In general, **Neuro Tracker** has 3 primary goals:
 
-- [ ] Allow users to set prescription's reminders (push notification / alarm)
-      Prescription Vyvanse 60mg
+1. Use technology to make it easier to record information that pertains to an
+   individuals condition.
+2. Aggregate and summarize recorded data, making it easier to share information
+   to health-care providers.
+3. Provide a seamless experience for all parties involved.
 
-  ```
-  Prescription_Public: {
-  name: string;
-  dosage: number;
-  dosage_unit: string;
-  description: string;
-  }
+To do so, I introduce a highly scalable and maintainable application developed using AWS
+technologies and a codebase completely developed using functional programming languages.
 
-  DayTimes: {Day: M | T | W | ... , Time: 00:00 - 23:59}
-
-  Prescription_Private = Prescription_Public & {
-  day_times: DayTimes,
-  doctor: string;
-  additional_notes: string;
-  }
-  ```
-
-- [ ] Allow users to store/retrieve logs.
-
-  ```
-  Symptom_Classifier {
-  name: string;
-  description: string;
-  }
-
-  Symptom_Instance: Symptom_Classifier & {
-  start: DateTime
-  end: DateTime
-  severity: number (/10)
-  notes: string;
-  }
-  ```
-
-## Access Patterns:
-
-- Users should be able to sign up
-  - First Name, Last Name, Phone Number
-- Users should be able to create/read/delete/update prescriptions
-- Users should be able to create/read/delete/update logs
-- Users should receive push notifications based on prescription datetime.
-
-## Stack:
-
-### FrontEnd:
-
-- Elm
-
-### BackEnd:
-
-- AWS API Gateway
-- AWS Lambda
-- AWS Aurora
-- AWS SNS
+## User Stories
