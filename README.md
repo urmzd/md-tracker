@@ -11,9 +11,15 @@ In general, **Neuro Tracker** has 3 primary goals:
    to health-care providers.
 3. Provide a seamless experience for all parties involved.
 
-To do so, I introduce a highly scalable and maintainable application developed using AWS
-technologies and a codebase completely developed using functional programming languages.
+To do so, this project attempts to introduce a highly scalable and maintainable application
+developed using AWS technologies and a codebase completely developed using functional programming languages.
 
 ## Table of Contents
 
 ## User Stories
+
+## Demo
+
+## Installation
+
+## Usage
