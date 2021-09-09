@@ -18,6 +18,12 @@ developed using AWS technologies and a codebase completely developed using funct
 
 ### 1. [User Stories](#user-stories)
 
+       1.1 [Login](#us1:-login)
+       1.2 [Registration](#us2:-registration)
+       1.3 [Symptom Tracker](#us3:-symptom-tracker)
+       1.4 [Prescription Tracker](#us4:-prescription-tracker)
+       1.5 [Logging View](#us5:-logging-view)
+
 ### 2. [Demo](#demo)
 
 ### 3. [Installation](#installation)
@@ -36,15 +42,15 @@ Let `ET` denote `Engineering Task`
 
 ---
 
-### User Story 1: Registration
+### US1: Registration
 
-### User Story 2: Login
+### US2: Login
 
-### User Story 3: Symptom Tracker
+### US3: Symptom Tracker
 
-### User Story 4: Prescription Tracker
+### US4: Prescription Tracker
 
-### User Story 5: Logging Information
+### US5: Logging View
 
 ## Demo
 
