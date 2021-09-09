@@ -18,8 +18,8 @@ developed using AWS technologies and a codebase completely developed using funct
 
 ### 1. [User Stories](#user-stories)
 
-1. [Login](#us1-login)
-2. [Registration](#us2-registration)
+1. [Registration](#us1-registration)
+2. [Login](#us2-login)
 3. [Symptom Tracker](#us3-symptom-tracker)
 4. [Prescription Tracker](#us4-prescription-tracker)
 5. [Logging View](#us5-logging-view)
