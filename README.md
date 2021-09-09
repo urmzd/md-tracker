@@ -1,7 +1,5 @@
 # Neuro Tracker
 
-## About
-
 **Neuro Tracker** is a health tool designed to reduce the information gap between
 individuals with neurological conditions and their health-care providers.
 
@@ -18,21 +16,23 @@ developed using AWS technologies and a codebase completely developed using funct
 
 ## Table of Contents
 
-### 1. [About](#about)
+### 1. [User Stories](#user-stories)
 
-### 2. [User Stories](#user-stories)
+### 2. [Demo](#demo)
 
-### 3. [Demo](#demo)
+### 3. [Installation](#installation)
 
-### 4. [Installation](#installation)
-
-### 5. [Usage](#usage)
+### 4. [Usage](#usage)
 
 ## User Stories
 
-- Let `US` denote `User Story`
-- Let `AT` denote `Acceptance Test`
-- Let `ET` denote `Engineering Task`
+---
+
+Let `US` denote `User Story`
+Let `AT` denote `Acceptance Test`
+Let `ET` denote `Engineering Task`
+
+---
 
 ### User Story 1: Registration
 
