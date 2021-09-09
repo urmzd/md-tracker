@@ -29,7 +29,9 @@ developed using AWS technologies and a codebase completely developed using funct
 ---
 
 Let `US` denote `User Story`
+
 Let `AT` denote `Acceptance Test`
+
 Let `ET` denote `Engineering Task`
 
 ---
