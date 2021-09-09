@@ -16,7 +16,29 @@ developed using AWS technologies and a codebase completely developed using funct
 
 ## Table of Contents
 
+### 1. [User Stories]("LINK HERE")
+
+### 2. [Demo]("LINK HERE")
+
+### 3. [Installation]("LINK HERE")
+
+### 4. [Usage]("LINK HERE")
+
 ## User Stories
+
+- Let "US" denote `User Story`
+- Let "AT" denote `Acceptance Test`
+- Let "ET" denote `Engineering Task`
+
+### User Story 1: Registration
+
+### User Story 2: Login
+
+### User Story 3: Symptom Tracker
+
+### User Story 4: Prescription Tracker
+
+### User Story 5: Logging Information
 
 ## Demo
 
