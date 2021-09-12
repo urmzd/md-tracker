@@ -1,9 +1,9 @@
-# Neuro Tracker
+# MD Tracker
 
-**Neuro Tracker** is a health tool designed to reduce the information gap between
-individuals with neurological conditions and their health-care providers.
+**MD Tracker** is a health tool designed to reduce the information gap between
+individuals and their health-care providers.
 
-In general, **Neuro Tracker** has 3 primary goals:
+In general, **MD Tracker** has 3 primary goals:
 
 1. Use technology to make it easier to record information that pertains to an
    individuals condition.
