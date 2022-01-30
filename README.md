@@ -25,5 +25,5 @@ npm run web
 npm run android
 
 # Run as IOS application 
-npm  
+npm run ios
 ```
